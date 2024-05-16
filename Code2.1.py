@@ -424,7 +424,7 @@ def figure_app():
         elif unit_choice == 'mm':
             factor = 0.001  # 1 millimeter = 0.001 meters
         else:
-            factor = 1  # Default to meters
+            factor = 100  # Default to meters
         return factor
 
     def get_mass_unit(unit, mass):
