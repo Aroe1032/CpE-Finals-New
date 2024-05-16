@@ -42,6 +42,14 @@ def figure_app():
                         solid_cube_prompt(density, 'm', used_mat)
                     elif selection == 3:  # Solid Cylinder
                         solid_cylinder_prompt(density, 'm', used_mat)
+                    elif selection == 4:  # Solid Rectangular Prism
+                        solid_rectangle_prompt(density, 'm', used_mat)
+                    elif selection == 5:  # Solid Sphere
+                        solid_sphere_prompt(density, 'm', used_mat)
+                    elif selection == 6:  # Solid Spiral Coil
+                        solid_coil_prompt(density, 'm', used_mat)
+                    elif selection == 7:  # Solid Spiral Coil
+                        solid_triangle_trough_prompt(density, 'm', used_mat)
                     else:
                         solid_cone_prompt(density, 'm', used_mat)
                 elif selected_materials == '2':
@@ -50,6 +58,14 @@ def figure_app():
                         solid_cube_prompt(density, 'cm', used_mat)
                     elif selection == 3:  # Solid Cylinder
                         solid_cylinder_prompt(density, 'cm', used_mat)
+                    elif selection == 4:  # Solid Rectangular Prism
+                        solid_rectangle_prompt(density, 'cm', used_mat)
+                    elif selection == 5:  # Solid Sphere
+                        solid_sphere_prompt(density, 'cm', used_mat)
+                    elif selection == 6:  # Solid Spiral Coil
+                        solid_coil_prompt(density, 'cm', used_mat)
+                    elif selection == 7:  # Solid Spiral Coil
+                        solid_triangle_trough_prompt(density, 'cm', used_mat)
                     else:
                         solid_cone_prompt(density, 'cm', used_mat)
                 else:
@@ -62,31 +78,19 @@ def figure_app():
             input("Press Enter to continue...")
 
     def solid_cone(radius, height, density, unit, used_mat, shape):
-        volume_cone = (1 / 3) * math.pi * (radius ** 2) * height
 
+        volume_cone = (1 / 3) * math.pi * (radius ** 2) * height
         mass = volume_cone * density
 
-        if unit == 'm':
-            mass_unit = "kilograms"
-        elif unit == 'cm':
-            mass_unit = "grams"
-        else:
-            mass_unit = "units"  # pag wala nilagay si user magiging units lang
-
-        if mass_unit == "kilograms":
-            mass_formatted = mass
-        elif mass_unit == "grams":
-            mass_formatted = mass * 1000
-        else:
-            mass_formatted = mass
+        mass_unit, mass_formatted = get_mass_unit(unit, mass)
 
         print("{}\n".format("-".center(70, "-")))
         print("{}\n".format(f"{used_mat} {shape}".center(70)))
         print(f"Radius: {radius} meters")
         print(f"Height: {height} meters")
-        print(f"Material Density: {density} kg/m^3")
+        print(f"Material Density: {density}")
         print(f"Volume: {volume_cone:10f} m^3")
-        print(f"Required Mass of {used_mat}: {mass_formatted} {mass_unit}")
+        print(f"Required Mass of {used_mat}: {mass_formatted:10f} {mass_unit}")
 
         return mass
 
@@ -101,18 +105,7 @@ def figure_app():
 
         # Pag pipili unit
         unit_choice = input("Enter the unit for radius and height (ft, in, m, cm, mm): \n").lower()
-
-        if unit_choice == 'ft':
-            factor = 0.3048  # 1 foot = 0.3048 meters
-        elif unit_choice == 'in':
-            factor = 0.0254  # 1 inch = 0.0254 meters
-        elif unit_choice == 'cm':
-            factor = 0.01  # 1 centimeter = 0.01 meters
-        elif unit_choice == 'mm':
-            factor = 0.001  # 1 millimeter = 0.001 meters
-        else:
-            factor = 1  # Default to meters
-
+        factor = get_factor(unit_choice)
         if unit == 'm':
             radius = float(input(f"\nEnter the radius (in {unit_choice}): ")) * factor
             height = float(input(f"Enter the height (in {unit_choice}): ")) * factor
@@ -132,30 +125,18 @@ def figure_app():
         user_choice()
 
     def solid_cube(side_length, density, unit, used_mat, shape):
+
         volume_cube = side_length ** 3
 
         mass = volume_cube * density
-
-        if unit == 'm':
-            mass_unit = "kilograms"
-        elif unit == 'cm':
-            mass_unit = "grams"
-        else:
-            mass_unit = "units"  # pag wala nilagay si user magiging units lang
-
-        if mass_unit == "kilograms":
-            mass_formatted = mass
-        elif mass_unit == "grams":
-            mass_formatted = mass * 1000
-        else:
-            mass_formatted = mass
+        mass_unit, mass_formatted = get_mass_unit(unit, mass)
 
         print("{}\n".format("-".center(70, "-")))
         print("{}\n".format(f"{used_mat} {shape}".center(70)))
         print(f"Side Length: {side_length} meters")
-        print(f"Material Density: {density} kg/m^3")
+        print(f"Material Density: {density}")
         print(f"Volume: {volume_cube:10f} m^3")
-        print(f"Required Mass of {used_mat}: {mass_formatted} {mass_unit}")
+        print(f"Required Mass of {used_mat}: {mass_formatted:10f} {mass_unit}")
 
         return mass
 
@@ -169,18 +150,7 @@ def figure_app():
 
         # Pag pipili unit
         unit_choice = input("Enter the unit for side length (ft, in, m, cm, mm): \n").lower()
-
-        if unit_choice == 'ft':
-            factor = 0.3048  # 1 foot = 0.3048 meters
-        elif unit_choice == 'in':
-            factor = 0.0254  # 1 inch = 0.0254 meters
-        elif unit_choice == 'cm':
-            factor = 0.01  # 1 centimeter = 0.01 meters
-        elif unit_choice == 'mm':
-            factor = 0.001  # 1 millimeter = 0.001 meters
-        else:
-            factor = 1  # Default to meters
-
+        factor = get_factor(unit_choice)
         if unit == 'm':
             side_length = float(input(f"\nEnter the side length (in {unit_choice}): ")) * factor
         elif unit == 'cm':
@@ -199,31 +169,19 @@ def figure_app():
         user_choice()
 
     def solid_cylinder(radius, height, density, unit, used_mat, shape):
+
         volume_cylinder = math.pi * (radius ** 2) * height
 
         mass = volume_cylinder * density
-
-        if unit == 'm':
-            mass_unit = "kilograms"
-        elif unit == 'cm':
-            mass_unit = "grams"
-        else:
-            mass_unit = "units"  # pag wala nilagay si user magiging units lang
-
-        if mass_unit == "kilograms":
-            mass_formatted = mass
-        elif mass_unit == "grams":
-            mass_formatted = mass * 1000
-        else:
-            mass_formatted = mass
+        mass_unit, mass_formatted = get_mass_unit(unit, mass)
 
         print("{}\n".format("-".center(70, "-")))
         print("{}\n".format(f"{used_mat} {shape}".center(70)))
         print(f"Radius: {radius} meters")
         print(f"Height: {height} meters")
-        print(f"Material Density: {density} kg/m^3")
+        print(f"Material Density: {density}")
         print(f"Volume: {volume_cylinder:10f} m^3")
-        print(f"Required Mass of {used_mat}: {mass_formatted} {mass_unit}")
+        print(f"Required Mass of {used_mat}: {mass_formatted:10f} {mass_unit}")
 
         return mass
 
@@ -238,18 +196,7 @@ def figure_app():
 
         # Pag pipili unit
         unit_choice = input("Enter the unit for radius and height (ft, in, m, cm, mm): \n").lower()
-
-        if unit_choice == 'ft':
-            factor = 0.3048  # 1 foot = 0.3048 meters
-        elif unit_choice == 'in':
-            factor = 0.0254  # 1 inch = 0.0254 meters
-        elif unit_choice == 'cm':
-            factor = 0.01  # 1 centimeter = 0.01 meters
-        elif unit_choice == 'mm':
-            factor = 0.001  # 1 millimeter = 0.001 meters
-        else:
-            factor = 1  # Default to meters
-
+        factor = get_factor(unit_choice)
         if unit == 'm':
             radius = float(input(f"\nEnter the radius (in {unit_choice}): ")) * factor
             height = float(input(f"Enter the height (in {unit_choice}): ")) * factor
@@ -267,6 +214,230 @@ def figure_app():
         print("\n{}".format("-".center(70, "-")))
 
         user_choice()
+
+    def solid_rectangle(length, width, height, density, unit, used_mat, shape):
+
+        volume_prism = length * width * height
+
+        mass = volume_prism * density
+        mass_unit, mass_formatted = get_mass_unit(unit, mass)
+
+        print("{}\n".format("-".center(70, "-")))
+        print("{}\n".format(f"{used_mat} {shape}".center(70)))
+        print(f"Length: {length} meters")
+        print(f"Width: {width} meters")
+        print(f"Height: {height} meters")
+        print(f"Material Density: {density}")
+        print(f"Volume: {volume_prism:10f} m^3")
+        print(f"Required Mass of {used_mat}: {mass_formatted:10f} {mass_unit}")
+
+        return mass
+
+    def solid_rectangle_prompt(density, unit, used_mat):
+        shape = "Solid Rectangular Prism"
+        print("\n{}\n".format("Solid Rectangular Prism".center(100, "~")))
+
+        length = 0.0
+        width = 0.0
+        height = 0.0
+
+        print(f"{used_mat} {shape}\n")
+
+        # Pag pipili unit
+        unit_choice = input("Enter the unit for radius and height (ft, in, m, cm, mm): \n").lower()
+        factor = get_factor(unit_choice)
+        if unit == 'm':
+            length = float(input(f"\nEnter the length (in {unit_choice}): ")) * factor
+            width = float(input(f"Enter the width (in {unit_choice}): ")) * factor
+            height = float(input(f"Enter the height (in {unit_choice}): ")) * factor
+        elif unit == 'cm':
+            length = float(input(f"\nEnter the length (in {unit_choice}): ")) * factor / 100
+            width = float(input(f"Enter the width (in {unit_choice}): ")) * factor / 100
+            height = float(input(f"Enter the height (in {unit_choice}): ")) * factor / 100
+
+        mass_needed = solid_rectangle(length, width, height, density, unit, used_mat, shape)
+
+        if unit == 'm':
+            print(f"\nMass of {used_mat} needed for the {used_mat} {shape}:", round(mass_needed, 4), "kilograms")
+        elif unit == 'cm':
+            print(f"\nMass of {used_mat} needed for the {used_mat} {shape}:", round(mass_needed * 1000, 4), "grams")
+
+        print("\n{}".format("-".center(70, "-")))
+
+        user_choice()
+
+    def solid_sphere(radius, density, unit, used_mat, shape):
+
+        volume_sphere = (4 / 3) * math.pi * radius ** 3
+
+        mass = volume_sphere * density
+        mass_unit, mass_formatted = get_mass_unit(unit, mass)
+
+        print("{}\n".format("-".center(70, "-")))
+        print("{}\n".format(f"{used_mat} {shape}".center(70)))
+        print(f"Radius: {radius} meters")
+        print(f"Material Density: {density}")
+        print(f"Volume: {volume_sphere:10f} m^3")
+        print(f"Required Mass of {used_mat}: {mass_formatted:10f} {mass_unit}")
+
+        return mass
+
+    def solid_sphere_prompt(density, unit, used_mat):
+        shape = "Solid Sphere"
+        print("\n{}\n".format("Solid Sphere".center(100, "~")))
+
+        radius = 0.0
+
+        print(f"{used_mat} {shape}\n")
+
+        # Pag pipili unit
+        unit_choice = input("Enter the unit for radius and height (ft, in, m, cm, mm): \n").lower()
+        factor = get_factor(unit_choice)
+        if unit == 'm':
+            radius = float(input(f"\nEnter the radius (in {unit_choice}): ")) * factor
+        elif unit == 'cm':
+            radius = float(input(f"Enter the radius (in {unit_choice}): ")) * factor / 100  # convert to meters
+
+        mass_needed = solid_sphere(radius, density, unit, used_mat, shape)
+
+        if unit == 'm':
+            print(f"\nMass of {used_mat} needed for the {used_mat} {shape}:", round(mass_needed, 4), "kilograms")
+        elif unit == 'cm':
+            print(f"\nMass of {used_mat} needed for the {used_mat} {shape}:", round(mass_needed * 1000, 4), "grams")
+
+        print("\n{}".format("-".center(70, "-")))
+
+        user_choice()
+
+    def solid_spiral_coil(pitch, length, radius, density, unit, used_mat, shape):
+        # length of coil based on pitch
+        height = pitch * length / (2 * math.pi * radius)
+
+        # volume of the coil (cylindrical)
+        volume_coil = math.pi * radius ** 2 * height
+
+        mass = volume_coil * density
+        mass_unit, mass_formatted = get_mass_unit(unit, mass)
+
+        print("{}\n".format("-".center(70, "-")))
+        print("{}\n".format(f"{used_mat} {shape}".center(70)))
+        print(f"Pitch: {pitch} meters")
+        print(f"Length: {length} meters")
+        print(f"Radius: {radius} meters")
+        print(f"Material Density: {density}")
+        print(f"Volume: {volume_coil:10f} m^3")
+        print(f"Required Mass of {used_mat}: {mass_formatted:10f} {mass_unit}")
+
+        return mass
+
+    def solid_coil_prompt(density, unit, used_mat):
+        shape = "Solid Spiral Coil"
+        print("\n{}\n".format("Solid Spiral Coil".center(100, "~")))
+
+        pitch = 0.0
+        length = 0.0
+        radius = 0.0
+
+        print(f"{used_mat} {shape}\n")
+
+        # Pag pipili unit
+        unit_choice = input("Enter the unit for radius and height (ft, in, m, cm, mm): \n").lower()
+        factor = get_factor(unit_choice)
+        if unit == 'm':
+            pitch = float(input(f"\nEnter the pitch (in {unit_choice}): ")) * factor
+            length = float(input(f"\nEnter the length (in {unit_choice}): ")) * factor
+            radius = float(input(f"\nEnter the radius (in {unit_choice}): ")) * factor
+        elif unit == 'cm':
+            pitch = float(input(f"\nEnter the pitch (in {unit_choice}): ")) * factor / 100
+            length = float(input(f"\nEnter the length (in {unit_choice}): ")) * factor / 100
+            radius = float(input(f"Enter the radius (in {unit_choice}): ")) * factor / 100  # convert to meters
+
+        mass_needed = solid_spiral_coil(pitch, length, radius, density, unit, used_mat, shape)
+
+        if unit == 'm':
+            print(f"\nMass of {used_mat} needed for the {used_mat} {shape}:", round(mass_needed, 4), "kilograms")
+        elif unit == 'cm':
+            print(f"\nMass of {used_mat} needed for the {used_mat} {shape}:", round(mass_needed * 1000, 4), "grams")
+
+        print("\n{}".format("-".center(70, "-")))
+
+        user_choice()
+
+    def solid_triangular_trough(base_length, height, length, density, unit, used_mat, shape):
+
+        volume_triangle_trough = 0.5 * base_length * height * length
+
+        mass = volume_triangle_trough * density
+        mass_unit, mass_formatted = get_mass_unit(unit, mass)
+
+        print("{}\n".format("-".center(70, "-")))
+        print("{}\n".format(f"{used_mat} {shape}".center(70)))
+        print(f"Base Length: {base_length} meters")
+        print(f"Height: {height} meters")
+        print(f"Length: {length} meters")
+        print(f"Material Density: {density}")
+        print(f"Volume: {volume_triangle_trough:10f} m^3")
+        print(f"Required Mass of {used_mat}: {mass_formatted:10f} {mass_unit}")
+
+        return mass
+
+    def solid_triangle_trough_prompt(density, unit, used_mat):
+        shape = "Solid Triangular Trough"
+        print("\n{}\n".format("Solid Triangular Trough".center(100, "~")))
+
+        base_length = 0.0
+        height = 0.0
+        length = 0.0
+
+        print(f"{used_mat} {shape}\n")
+
+        # Pag pipili unit
+        unit_choice = input("Enter the unit for radius and height (ft, in, m, cm, mm): \n").lower()
+        factor = get_factor(unit_choice)
+        if unit == 'm':
+            base_length = float(input(f"\nEnter the base_length (in {unit_choice}): ")) * factor
+            height = float(input(f"\nEnter the height (in {unit_choice}): ")) * factor
+            length = float(input(f"\nEnter the length (in {unit_choice}): ")) * factor
+        elif unit == 'cm':
+            base_length = float(input(f"\nEnter the base_length (in {unit_choice}): ")) * factor / 100
+            height = float(input(f"\nEnter the height (in {unit_choice}): ")) * factor / 100
+            length = float(input(f"\nEnter the length (in {unit_choice}): ")) * factor / 100
+
+        mass_needed = solid_triangular_trough(base_length, height, length, density, unit, used_mat, shape)
+
+        if unit == 'm':
+            print(f"\nMass of {used_mat} needed for the {used_mat} {shape}:", round(mass_needed, 4), "kilograms")
+        elif unit == 'cm':
+            print(f"\nMass of {used_mat} needed for the {used_mat} {shape}:", round(mass_needed * 1000, 4), "grams")
+
+        print("\n{}".format("-".center(70, "-")))
+
+        user_choice()
+
+    def get_factor(unit_choice):
+        if unit_choice == 'ft':
+            factor = 0.3048  # 1 foot = 0.3048 meters
+        elif unit_choice == 'in':
+            factor = 0.0254  # 1 inch = 0.0254 meters
+        elif unit_choice == 'cm':
+            factor = 0.01  # 1 centimeter = 0.01 meters
+        elif unit_choice == 'mm':
+            factor = 0.001  # 1 millimeter = 0.001 meters
+        else:
+            factor = 1  # Default to meters
+        return factor
+
+    def get_mass_unit(unit, mass):
+        if unit == 'm':
+            mass_unit = "kilograms"
+            mass_formatted = mass
+        elif unit == 'cm':
+            mass_unit = "grams"
+            mass_formatted = mass * 1000
+        else:
+            mass_unit = "units"  # pag wala nilagay si user magiging units lang
+            mass_formatted = mass
+        return mass_unit, mass_formatted
 
     def user_choice():
         choice = input(f"\nDo you want to solve for a 3D Figure again (Yes/No)?\n")
