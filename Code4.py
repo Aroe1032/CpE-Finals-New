@@ -129,7 +129,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             radius = float(input(f"\nEnter the radius (in {unit_choice}): ")) * factor
             height = float(input(f"Enter the height (in {unit_choice}): ")) * factor
@@ -168,7 +168,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             side_length = float(input(f"\nEnter the side length (in {unit_choice}): ")) * factor
         elif unit == 'cm':
@@ -208,7 +208,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             radius = float(input(f"\nEnter the radius (in {unit_choice}): ")) * factor
             height = float(input(f"Enter the height (in {unit_choice}): ")) * factor
@@ -251,7 +251,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             length = float(input(f"\nEnter the length (in {unit_choice}): ")) * factor
             width = float(input(f"Enter the width (in {unit_choice}): ")) * factor
@@ -292,7 +292,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             radius = float(input(f"\nEnter the radius (in {unit_choice}): ")) * factor
         elif unit == 'cm':
@@ -333,7 +333,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             base_length = float(input(f"\nEnter the base_length (in {unit_choice}): ")) * factor
             height = float(input(f"\nEnter the height (in {unit_choice}): ")) * factor
@@ -374,7 +374,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             side_length = float(input(f"\nEnter the side length (in {unit_choice}): ")) * factor
         elif unit == 'cm':
@@ -414,7 +414,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             height = float(input(f"\nEnter the height (in {unit_choice}): ")) * factor
             outer_radius = float(input(f"\nEnter the outer radius (in {unit_choice}): ")) * factor
@@ -459,7 +459,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             radius = float(input(f"\nEnter the radius (in {unit_choice}): ")) * factor
             pitch = float(input(f"\nEnter the pitch (in {unit_choice}): ")) * factor
@@ -503,7 +503,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             height = float(input(f"\nEnter the height (in {unit_choice}): ")) * factor
             outer_radius = float(input(f"\nEnter the outer radius (in {unit_choice}): ")) * factor
@@ -555,7 +555,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             outer_side_length = float(input(f"\nEnter the outer side length (in {unit_choice}): ")) * factor
             inner_side_length = float(input(f"\nEnter the inner side length (in {unit_choice}): ")) * factor
@@ -609,7 +609,7 @@ def figure_app():
         print(f"{used_mat} {shape}\n")
 
         # Pag pipili unit
-        factor, unit_choice = get_factor(unit)
+        factor, unit_choice = get_factor()
         if unit == 'm':
             height = float(input(f"\nEnter the height (in {unit_choice}): ")) * factor
             outer_bottom_base_length = float(input(
@@ -649,46 +649,29 @@ def figure_app():
         elif unit == 'cm':
             print(f"\nMass of {used_mat} needed for the {used_mat} {shape}:\n", round(mass_needed * 1000, 4), "grams")
 
-    def get_factor(unit):
+    def get_factor():
         while True:
             try:
                 unit_choice = input("Enter the unit for radius and height (ft, in, m, cm, mm): \n").lower()
-                if unit_choice in ['ft', 'in', 'm', 'cm', 'mm']:
+                if unit_choice in ['ft', 'in', 'cm', 'mm']:
                     break  # Exit the loop if the input is valid
                 else:
                     print("Invalid unit choice. Please enter one of the following: ft, in, m, cm, mm.")
-            except ValueError:
-                print("\nInvalid Selection. Going Back to Menu...")
-                # menu()  # This line should be removed or replaced with a valid function call
-
-        if unit == '1':
-            if unit_choice == 'ft':
-                factor = 0.3048  # 1 foot = 0.3048 meters
-            elif unit_choice == 'in':
-                factor = 0.0254  # 1 inch = 0.0254 meters
-            elif unit_choice == 'cm':
-                factor = 0.01  # 1 centimeter = 0.01 meters
-            elif unit_choice == 'mm':
-                factor = 0.001  # 1 millimeter = 0.001 meters
-            elif unit_choice == 'm':
-                factor = 1
-            else:
-                factor = 1  # Default to meters
-        elif unit == '2':
-            if unit_choice == 'ft':
-                factor = 3048
-            elif unit_choice == 'in':
-                factor = 254
-            elif unit_choice == 'cm':
-                factor = 100
-            elif unit_choice == 'm':
-                factor = 1000
-            elif unit_choice == 'mm':
-                factor = 100
-            else:
-                factor = 100  # Default to centimeters
+            except KeyboardInterrupt:
+                print("\nProgram interrupted by user. Exiting...")
+                exit()  # Exit the program if the user interrupts it with Ctrl+C
+        if unit_choice == 'ft':
+            factor = 0.3048  # 1 foot = 0.3048 meters
+        elif unit_choice == 'in':
+            factor = 0.0254  # 1 inch = 0.0254 meters
+        elif unit_choice == 'cm':
+            factor = 0.01  # 1 centimeter = 0.01 meters
+        elif unit_choice == 'mm':
+            factor = 0.001  # 1 millimeter = 0.001 meters
+        elif unit_choice == 'mm':
+            factor = 1
         else:
-            raise ValueError(f"Invalid value for unit: {unit}")
+            factor = 1  # Default to meters
 
         return factor, unit_choice
 
