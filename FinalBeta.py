@@ -579,6 +579,7 @@ def figure_app():
                     elif unit == "2":
                         density_str = f"{density} g/cm^3"
                         print(f"{index}: {material} - Density: {density_str}")
+                        
                 selection = input("\nSelect a material (type MENU/EXIT to go back/exit): ")
                 density_unit = ""
                 if selection.lower() == "menu":
