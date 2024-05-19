@@ -34,11 +34,21 @@ materialsgcm3 = {
     "Stainless Steel": 8.00,
 }
 
+print("CpE 401 Final Project 2024".rjust(140))
+print("This app was made by:".rjust(140))
+print("ChE-1205//Group 7: Accentronix".rjust(140))
+print("Tan".rjust(140))
+print("Monteser".rjust(140))
+print("De Leon".rjust(140))
+print("Gonda".rjust(140))
+
 
 # Function storing the program
 def figure_app():
     def menu():  # Program header and shapes list enumeration
-        print("\n{}".format("MatFabricator".center(100, "~")))
+        print("{}".format("MatFabricator".center(120, "~")))
+        print("\nThis is a program designed to calculate the"
+              " mass of a material needed for a 3D Figure of specific parameters.\n")
         print("3-Dimensional Figures:\n")
         for index, item in enumerate(SHAPES, start=1):
             print(f"{index}: {item}")
@@ -46,7 +56,7 @@ def figure_app():
         try:  # User input for shape selection with error handling
             selection = input("\nPlease select a 3D Object [1-12]\n(type EXIT to exit): ").strip()
             if selection.lower() == "exit":
-                print("\nThe MatFabricator will now exit.\nThank you for using the app made by Accenorix.")
+                print("\nThe MatFabricator will now exit.\nThank you for using the app made by Accentronix.")
                 exit()
             elif 1 <= int(selection) <= len(SHAPES):
                 selected_materials = select_material_units(SHAPES[int(selection) - 1])
@@ -511,19 +521,20 @@ def figure_app():
 
         user_choice()
 
-    def select_material_units(shape):   # Function for the material density unit selection
+    def select_material_units(shape):  # Function for the material density unit selection
         print("\n{}".format("Unit Selection".center(100, "-")))
         selected_materials = None
         while selected_materials not in ["1", "2"]:
             selected_materials = input(
                 f"\nSelect a unit for the material of the {shape}:\n"
                 "1. kg/m^3 (for larger objects / answers in Kilograms)"
-                "\n2. g/cm^3 (for smaller objects / answers in Grams)\n\nChoice (type MENU/EXIT to go back/exit): "
+                "\n2. g/cm^3 (for smaller objects / answers in Grams)\n\nChoice [1-2]\n"
+                "(type MENU/EXIT to go back/exit): "
             )
             if selected_materials.lower() == "menu":
                 menu()
             elif selected_materials.lower() == "exit":
-                print("\nThe MatFabricator will now exit.\nThank you for using the app made by Accenorix.")
+                print("\nThe MatFabricator will now exit.\nThank you for using the app made by Accentronix.")
                 exit()
             elif selected_materials not in ["1", "2"]:
                 input("Please select a unit from the list. Press Enter to continue...")
@@ -543,12 +554,12 @@ def figure_app():
                         density_str = f"{density} g/cm^3"
                         print(f"{index}: {material} - Density: {density_str}")
 
-                selection = input("\nSelect a material (type MENU/EXIT to go back/exit): ")
+                selection = input("\nSelect a material [1-5]\n(type MENU/EXIT to go back/exit): ")
                 density_unit = ""
                 if selection.lower() == "menu":
                     menu()
                 if selection.lower() == "exit":
-                    print("\nThe MatFabricator will now exit.\nThank you for using the app made by Accenorix.")
+                    print("\nThe MatFabricator will now exit.\nThank you for using the app made by Accentronix.")
                     exit()
                 elif 1 <= int(selection) <= len(materials):
                     if unit == "1":
@@ -567,12 +578,12 @@ def figure_app():
     def get_factor():  # Function for the conversion factors of the shape parameters
         while True:
             try:
-                unit_choice = input("\nEnter the unit for the shape parameters (ft, in, m, cm, mm)"
+                unit_choice = input("\nEnter the unit for the shape parameters [ft, in, m, cm, mm]"
                                     "\n(type MENU/EXIT to go back/exit): ").lower()
                 if unit_choice.lower() == "menu":
                     menu()
                 elif unit_choice.lower() == "exit":
-                    print("\nThe MatFabricator will now exit.\nThank you for using the app made by Accenorix.")
+                    print("\nThe MatFabricator will now exit.\nThank you for using the app made by Accentronix.")
                     exit()
                 elif unit_choice in ["ft", "in", "cm", "mm", "m"]:
                     break
@@ -634,7 +645,7 @@ def figure_app():
         if choice.lower() == "yes":
             menu()
         elif choice.lower() == "no":
-            print("\nThe MatFabricator will now exit.\nThank you for using the app made by Accenorix.")
+            print("\nThe MatFabricator will now exit.\nThank you for using the app made by Accentronix.")
             exit()
         else:
             input("Select from the choices (yes/no). Press Enter to continue...\n")
